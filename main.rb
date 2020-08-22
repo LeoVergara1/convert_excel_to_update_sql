@@ -1,19 +1,21 @@
 require 'rubyXL'
 
-["AGSmigrationRev.xlsx","CHImigrationRev.xlsx", "TLAmigrationRev.xlsx", "TOLmigrationRev.xlsx", "VIRmigrationRev.xlsx"].each do |name|
-  workbook = RubyXL::Parser.parse(name)
+["AGSmigrationRev","CHImigrationRev", "TLAmigrationRev", "TOLmigrationRev", "VIRmigrationRev"].each do |name|
+  workbook = RubyXL::Parser.parse("#{name}.xlsx")
   worksheet = workbook[0]
-  file = File.open("update_migration_#{name}.txt", "w+")
+  file = File.open("update_migration_#{name}.sql", "w+")
   worksheet.drop(1).each do |cells|
-    file.puts "UPDATE NOMINA.PRN_TEACHER_PROFILE SET CAMPUS_BASE = '#{cells[6].value}', DIVISION_BASE = '#{cells[7].value}' WHERE PIDM = '#{cells[1].value}';\n"
+    file.puts "UPDATE NOMINA.PRN_TEACHER_PROFILE SET CAMPUS_BASE = '#{cells[6].value}', DIVISION_BASE = '#{cells[7].value}', USERNAME = 'migrationSql' WHERE PIDM = '#{cells[1].value}';\n"
   end
+  p "#{name}.xlsx"
 end
 #Columnas Diferentes -_-
-["SLPmigrationRev.xlsx","CMXmigrationRev.xlsx", "EMPmigrationRev.xlsx", "GDLmigrationRev.xlsx", "LEOmigrationRev.xlsx", "MERmigrationRev.xlsx","PCHmigrationRev.xlsx", "QROmigrationRev.xlsx", "REFmigrationRev.xlsx"].each do |name|
-  workbook = RubyXL::Parser.parse(name)
+["SLPmigrationRev","CMXmigrationRev", "EMPmigrationRev", "GDLmigrationRev", "LEOmigrationRev", "MERmigrationRev","PCHmigrationRev", "QROmigrationRev", "REFmigrationRev"].each do |name|
+  workbook = RubyXL::Parser.parse("#{name}.xlsx")
   worksheet = workbook[0]
-  file = File.open("update_migration_#{name}.txt", "w+")
+  file = File.open("update_migration_#{name}.sql", "w+")
   worksheet.drop(1).each do |cells|
-    file.puts "UPDATE NOMINA.PRN_TEACHER_PROFILE SET CAMPUS_BASE = '#{cells[5].value}', DIVISION_BASE = '#{cells[6].value}' WHERE PIDM = '#{cells[1].value}';\n"
+    file.puts "UPDATE NOMINA.PRN_TEACHER_PROFILE SET CAMPUS_BASE = '#{cells[5].value}', DIVISION_BASE = '#{cells[6].value}', USERNAME = 'migrationSql' WHERE PIDM = '#{cells[1].value}';\n"
   end
+  p "#{name}.xlsx"
 end
